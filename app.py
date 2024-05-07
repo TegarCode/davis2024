@@ -12,7 +12,7 @@ st.subheader("")
 st.subheader("Scatter Plot")
 # 1
 # reading the database
-data = pd.read_csv("https://raw.githubusercontent.com/dhavinaocxa/davis-2024/main/tips.csv")
+data = pd.read_csv("https://raw.githubusercontent.com/TegarCode/davis2024/main/tips.csv")
 
 # Scatter plot with day against tip
 fig, ax = plt.subplots()
