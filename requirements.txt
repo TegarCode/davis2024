@@ -3,3 +3,7 @@ pandas==2.2.1
 plotly==5.22.0
 matplotlib
 seaborn
+pyttsx3
+gtts
+translators
+pygame
