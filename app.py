@@ -5,7 +5,7 @@ import seaborn as sns
 import plotly.express as px
 import pyttsx3
 
-# Inisialisasi pyttsx3
+# Inisialisa
 engine = pyttsx3.init()
 
 # Function untuk mengucapkan teks dalam bahasa Inggris
