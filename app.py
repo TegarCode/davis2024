@@ -6,6 +6,20 @@ import plotly.express as px
 import pyttsx3
 
 # Function untuk mengucapkan teks dalam bahasa Inggris
+def text_to_speech_english(text):
+    engine = pyttsx3.init(driverName='sapi5')  # Menggunakan mode offline
+    engine.setProperty('rate', 150)
+    engine.setProperty('voice', 'english')
+    engine.say(text)
+    engine.runAndWait()
+
+# Function untuk mengucapkan teks dalam bahasa Indonesia
+def text_to_speech_indonesian(text):
+    engine = pyttsx3.init(driverName='sapi5')  # Menggunakan mode offline
+    engine.setProperty('rate', 150)
+    engine.setProperty('voice', 'indonesian')
+    engine.say(text)
+    engine.runAndWait()
 
 # Menampilkan teks 
 st.subheader("VISUALISASI DATA KU")
@@ -56,5 +70,13 @@ plt.title('Bar Plot')
 plt.legend(title='Sex')
 st.pyplot(fig)
 
+# Teks tambahan
+additional_text = "Project ini dibuat oleh Tegar Oktavianto Simbolon dengan NPM mahasiswa 21082010140"
 
+# Pilihan bahasa
+language = st.selectbox("Pilih Bahasa", ["English", "Indonesian"])
+
+if language == "English":
+    text_to_speech_english(additional_text)
+else:
     text_to_speech_indonesian(additional_text)
