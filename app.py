@@ -7,7 +7,7 @@ import pyttsx3
 
 # Function untuk mengucapkan teks dalam bahasa Inggris
 def text_to_speech_english(text):
-    engine = pyttsx3.init()
+    engine = pyttsx3.init(driverName='sapi5')  # Menggunakan mode offline
     engine.setProperty('rate', 150)
     engine.setProperty('voice', 'english')
     engine.say(text)
@@ -15,7 +15,7 @@ def text_to_speech_english(text):
 
 # Function untuk mengucapkan teks dalam bahasa Indonesia
 def text_to_speech_indonesian(text):
-    engine = pyttsx3.init()
+    engine = pyttsx3.init(driverName='sapi5')  # Menggunakan mode offline
     engine.setProperty('rate', 150)
     engine.setProperty('voice', 'indonesian')
     engine.say(text)
