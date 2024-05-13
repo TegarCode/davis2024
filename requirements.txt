@@ -6,3 +6,4 @@ seaborn
 gTTS
 pydub
 pyttsx3
+comtypes
