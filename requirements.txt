@@ -3,7 +3,9 @@ pandas
 plotly==5.22.0
 matplotlib
 seaborn
-gTTS
+gtts
 pydub
 pyttsx3
 comtypes
+translators
+pygame
