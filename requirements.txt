@@ -8,4 +8,4 @@ gtts
 translators
 pygame
 espeak
-comtypes
+
