@@ -1,62 +1,83 @@
 import streamlit as st
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import plotly.express as px
 import pyttsx3
-from gtts import gTTS
-import translators as ts
-import pygame
-import io
 
-def text_to_speech(text, language='en'):
-    # Inisialisasi pyttsx3
-    engine = pyttsx3.init()
+# Inisialisasi pyttsx3
+engine = pyttsx3.init()
 
-    # Mengucapkan teks
+# Function untuk mengucapkan teks dalam bahasa Inggris
+def text_to_speech_english(text):
+    engine.setProperty('rate', 150)
+    engine.setProperty('voice', 'english')
     engine.say(text)
     engine.runAndWait()
 
-def translate_text(text, to_language='id'):
-    # Melakukan terjemahan
-    hasil = ts.translate_text(text, to_language=to_language, translator='google')
-    return hasil
+# Function untuk mengucapkan teks dalam bahasa Indonesia
+def text_to_speech_indonesian(text):
+    engine.setProperty('rate', 150)
+    engine.setProperty('voice', 'indonesian')
+    engine.say(text)
+    engine.runAndWait()
 
-def text_to_speech_gTTS(text, language='en'):
-    # Membuat objek gTTS dari teks
-    tts = gTTS(text=text, lang=language)
+# Menampilkan teks 
+st.subheader("VISUALISASI DATA KU")
+st.write("Tegar Oktavianto Simbolon (21082010140)")
 
-    # Save the audio as bytes
-    audio_bytes = io.BytesIO()
-    tts.write_to_fp(audio_bytes)
+st.subheader("")
+st.subheader("Scatter Plot")
+# 1
+# reading the database
+data = pd.read_csv("https://raw.githubusercontent.com/TegarCode/davis2024/main/tips.csv")
 
-    return audio_bytes
+# Scatter plot with day against tip
+fig, ax = plt.subplots()
+scatter = ax.scatter(data['day'], data['tip'])
 
-def play_audio(audio_bytes):
-    # Inisialisasi mixer untuk Pygame
-    pygame.mixer.init()
+# Setting the X and Y labels
+plt.xlabel('Day')
+plt.ylabel('Tip')
 
-    # Load the audio into Pygame mixer
-    audio_bytes.seek(0)
-    pygame.mixer.music.load(audio_bytes)
+# showing the plot
+st.pyplot(fig)
 
-    # Play the audio
-    pygame.mixer.music.play()
+st.subheader("")
+st.subheader("Line Plot")
+# 2
+# draw lineplot
+fig, ax = plt.subplots() 
+sns.lineplot(x="sex", y="total_bill", data=data, ax=ax)
 
-# Menampilkan input teks
-input_text = st.text_area("Masukkan teks yang ingin diterjemahkan dan didengar:", "")
+# showing the plot
+st.pyplot(fig)
 
-# Memilih bahasa tujuan
-to_language = st.selectbox("Pilih bahasa tujuan:", ["Indonesia", "English"])
-to_language_code = 'id' if to_language == "Indonesia" else 'en'
+st.subheader("")
+st.subheader("Line Chart")
+# 3
+# plotting the scatter chart
+fig = px.line(data, y='tip', color='sex')
 
-# Terjemahkan teks jika ada input
-if input_text:
-    translated_text = translate_text(input_text, to_language=to_language_code)
-    st.write("Teks Terjemahan:", translated_text)
+# showing the plot
+st.plotly_chart(fig)
 
-    # Pilihan untuk menggunakan pyttsx3 atau gTTS
-    audio_engine = st.radio("Pilih engine untuk membaca teks:", ("pyttsx3", "gTTS"))
+# Bar plot
+fig = plt.figure(figsize=(10, 6))
+sns.barplot(x='day', y='tip', data=data, hue='sex')
+plt.xlabel('Day')
+plt.ylabel('Tip')
+plt.title('Bar Plot')
+plt.legend(title='Sex')
+st.pyplot(fig)
 
-    if st.button("Dengarkan"):
-        if audio_engine == "pyttsx3":
-            text_to_speech(translated_text, language=to_language_code)
-        else:
-            audio_bytes = text_to_speech_gTTS(translated_text, language=to_language_code)
-            play_audio(audio_bytes)
+# Teks tambahan
+additional_text = "Project ini dibuat oleh Tegar Oktavianto Simbolon dengan NPM mahasiswa 21082010140"
+
+# Pilihan bahasa
+language = st.selectbox("Pilih Bahasa", ["English", "Indonesian"])
+
+if language == "English":
+    text_to_speech_english(additional_text)
+else:
+    text_to_speech_indonesian(additional_text)
