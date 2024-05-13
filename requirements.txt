@@ -1,6 +1,6 @@
 streamlit
 pandas==2.2.1
-plotly==5.22.0
+plotly==3.5
 matplotlib
 seaborn
 pyttsx3
