@@ -11,6 +11,23 @@ chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
 
 st.bar_chart(chart_data)
 
+# Function to convert text to speech and generate audio file
+def text_to_speech(text, filename="audio.mp3"):
+    tts = gTTS(text=text, lang='id')  # Using Indonesian language
+    tts.save(filename)
+    return filename
+
+# Function to play audio in streamlit using HTML
+def play_audio(audio_file):
+    with open(audio_file, "rb") as file:
+        audio_bytes = file.read()
+        audio_placeholder = st.empty()
+        audio_placeholder.markdown(f"""
+            <audio autoplay="true">
+            <source src="data:audio/mp3;base64,{base64.b64encode(audio_bytes).decode()}" type="audio/mp3">
+            </audio>
+            """, unsafe_allow_html=True)
+
 
 
 # Initialize connection.
