@@ -91,13 +91,5 @@ plt.title('Bar Plot')
 plt.legend(title='Sex')
 st.pyplot(fig)
 
-# Teks tambahan
-additional_text = "Project ini dibuat oleh Tegar Oktavianto Simbolon dengan NPM mahasiswa 21082010140"
-
-# Pilihan bahasa
-language = st.selectbox("Pilih Bahasa", ["English", "Indonesian"])
-
-if language == "English":
-    text_to_speech_english(additional_text)
-else:
-    text_to_speech_indonesian(additional_text)
+audio_file = text_to_speech("Ini merupakan hasil deploy streamlit Tegar")
+play_audio(audio_file)
