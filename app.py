@@ -133,7 +133,7 @@ if df_mountain_bike_spareparts is not None:
 
 
 # Load the CSV file
-file_path = 'imdb_combined_data2.csv'  # Adjust this path if needed
+file_path = 'https://raw.githubusercontent.com/TegarCode/davis2024/main/imdb_combined_data2.csv'  # Adjust this path if needed
 data = pd.read_csv(file_path)
 
 # Display the first few rows of the DataFrame
