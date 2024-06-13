@@ -161,13 +161,15 @@ ax.set_ylabel('Frekuensi')
 ax.set_title('Distribusi Gross Worldwide')
 st.pyplot(fig)
 
-# Grafik Komposisi: Komposisi Gross Worldwide berdasarkan Rating
+# Grafik Komposisi: Komposisi Gross Worldwide berdasarkan Rating (Donut Chart)
 st.write("Grafik Komposisi: Komposisi Gross Worldwide berdasarkan Rating")
 gross_composition = data.groupby('Rating')['Gross_World'].sum()
 fig, ax = plt.subplots(figsize=(10, 6))
-gross_composition.plot(kind='pie', autopct='%1.1f%%', startangle=140, colors=plt.cm.Paired.colors, ax=ax)
+wedges, texts, autotexts = ax.pie(gross_composition, autopct='%1.1f%%', startangle=140, colors=plt.cm.Paired.colors, wedgeprops=dict(width=0.3))
 ax.set_ylabel('')
 ax.set_title('Komposisi Gross Worldwide berdasarkan Rating')
+for text in texts + autotexts:
+    text.set_color('black')
 st.pyplot(fig)
 
 # Grafik Hubungan: Budget vs. Gross Worldwide
