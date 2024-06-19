@@ -131,7 +131,7 @@ if df_sales_per_territory is not None:
     squarify.plot(sizes=df_sales_per_territory['TotalSales'], 
                   label=df_sales_per_territory['Region'], 
                   alpha=.8,
-                 cmap=plt.cm.Blues)
+                 cmap='viridis')
     plt.title('Komposisi Penjualan per Wilayah')
     plt.axis('off')  # turn off the axis
     st.pyplot(plt)
