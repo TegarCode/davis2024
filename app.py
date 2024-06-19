@@ -127,14 +127,13 @@ if df_sales_per_territory is not None:
         audio_bytes = audio_file.read()
         st.audio(audio_bytes, format='audio/mp3')
 
-    plt.figure(figsize=(12, 8))
+    fig, ax = plt.subplots(figsize=(12, 8))
     squarify.plot(sizes=df_sales_per_territory['TotalSales'], 
                   label=df_sales_per_territory['Region'], 
                   alpha=.8,
-                  color=sns.color_palette("Spectral", len(df_sales_per_territory)),
-                  ax=ax)
-    plt.set_title('Komposisi Penjualan per Wilayah')
-    plt.axis('off')  # turn off the axis
+                  color=sns.color_palette("Spectral", len(df_sales_per_territory)))
+    ax.set_title('Komposisi Penjualan per Wilayah')
+    ax.axis('off')  # turn off the axis
     st.pyplot(fig)
 
 # Bagian untuk distribusi usia pelanggan
