@@ -133,8 +133,8 @@ if df_sales_per_territory is not None:
                   alpha=.8,
                   color=sns.color_palette("Spectral", len(df_sales_per_territory)),
                   ax=ax)
-    ax.set_title('Komposisi Penjualan per Wilayah')
-    ax.axis('off')  # turn off the axis
+    plt.set_title('Komposisi Penjualan per Wilayah')
+    plt.axis('off')  # turn off the axis
     st.pyplot(fig)
 
 # Bagian untuk distribusi usia pelanggan
