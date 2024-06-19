@@ -131,10 +131,11 @@ if df_sales_per_territory is not None:
     squarify.plot(sizes=df_sales_per_territory['TotalSales'], 
                   label=df_sales_per_territory['Region'], 
                   alpha=.8,
-                 cmap='plasma')
-    plt.title('Komposisi Penjualan per Wilayah')
-    plt.axis('off')  # turn off the axis
-    st.pyplot(plt)
+                  color=sns.color_palette("Spectral", len(df_sales_per_territory)),
+                  ax=ax)
+    ax.set_title('Komposisi Penjualan per Wilayah')
+    ax.axis('off')  # turn off the axis
+    st.pyplot(fig)
 
 # Bagian untuk distribusi usia pelanggan
 st.header('Distribusi Usia Pelanggan')
