@@ -15,4 +15,4 @@ SQLAlchemy
 scipy
 prophet
 squarify
-
+mysql-connector-python
