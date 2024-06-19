@@ -128,13 +128,12 @@ if df_sales_per_territory is not None:
         st.audio(audio_bytes, format='audio/mp3')
 
    plt.figure(figsize=(12, 8))
-squarify.plot(sizes=df_sales_per_territory['TotalSales'],
-              label=df_sales_per_territory['Region'],
-              alpha=.8,
-              color=plt.cm.viridis)
-plt.title('Komposisi Penjualan per Wilayah')
-plt.axis('off')
-st.pyplot(plt)
+    squarify.plot(sizes=df_sales_per_territory['TotalSales'], 
+                  label=df_sales_per_territory['Region'], 
+                  alpha=.8)
+    plt.title('Komposisi Penjualan per Wilayah')
+    plt.axis('off')  # turn off the axis
+    st.pyplot(plt)
 
 # Bagian untuk distribusi usia pelanggan
 st.header('Distribusi Usia Pelanggan')
