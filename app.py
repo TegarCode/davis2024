@@ -89,7 +89,7 @@ GROUP BY ss.SparepartType
 ORDER BY TotalSales DESC;
 """
 
-st.title('Data Analysis with Streamlit and MySQL')
+st.title('Tegar Oktavianto Simbolon 21082010140')
 
 # Bagian untuk visualisasi penjualan per wilayah
 st.header('Distribusi Penjualan per Wilayah')
