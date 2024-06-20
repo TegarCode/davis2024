@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import pymysql
-import squarify
+import plotly.express as px
 from io import StringIO
 import os
 from gtts import gTTS
@@ -93,26 +93,39 @@ st.title('Data Analysis with Streamlit and MySQL')
 
 # Bagian untuk visualisasi penjualan per wilayah
 st.header('Distribusi Penjualan per Wilayah')
-penjelasan_territory = """
-Grafik batang ini menunjukkan distribusi penjualan di setiap wilayah. 
-Setiap batang mewakili satu wilayah, dan tinggi batang menunjukkan jumlah total penjualan di wilayah tersebut. 
-Ini membantu memahami bagaimana penjualan terdistribusi di berbagai wilayah geografis, yang dapat mempengaruhi pengambilan keputusan strategis.
-"""
-st.markdown(penjelasan_territory)
-audio_territory = "audio_territory.mp3"
-if not os.path.exists(audio_territory):
-    text_to_audio(penjelasan_territory, audio_territory)
-if st.button("Dengarkan Penjelasan Distribusi Penjualan per Wilayah"):
-    audio_file = open(audio_territory, 'rb')
-    audio_bytes = audio_file.read()
-    st.audio(audio_bytes, format='audio/mp3')
 
 df_sales_per_territory = fetch_data(query_sales_per_territory)
 if df_sales_per_territory is not None:
-    st.bar_chart(df_sales_per_territory.set_index('Region'))
+    # Menggunakan plotly untuk grafik bar interaktif
+    fig_bar = px.bar(df_sales_per_territory, x='Region', y='TotalSales',
+                     color='TotalSales', color_continuous_scale='Viridis',
+                     labels={'TotalSales': 'Total Penjualan', 'Region': 'Wilayah'},
+                     title='Distribusi Penjualan per Wilayah')
+    st.plotly_chart(fig_bar, use_container_width=True)
+
+    # Penjelasan dan audio
+    penjelasan_territory = """
+    Grafik batang ini menunjukkan distribusi penjualan di setiap wilayah. 
+    Setiap batang mewakili satu wilayah, dan tinggi batang menunjukkan jumlah total penjualan di wilayah tersebut. 
+    Ini membantu memahami bagaimana penjualan terdistribusi di berbagai wilayah geografis, yang dapat mempengaruhi pengambilan keputusan strategis.
+    """
+    st.markdown(penjelasan_territory)
+    audio_territory = "audio_territory.mp3"
+    if not os.path.exists(audio_territory):
+        text_to_audio(penjelasan_territory, audio_territory)
+    if st.button("Dengarkan Penjelasan Distribusi Penjualan per Wilayah"):
+        audio_file = open(audio_territory, 'rb')
+        audio_bytes = audio_file.read()
+        st.audio(audio_bytes, format='audio/mp3')
 
     # Membuat tree map chart
     st.write("Komposisi Penjualan per Wilayah")
+    fig_treemap = px.treemap(df_sales_per_territory, path=['Region'], values='TotalSales',
+                             color='TotalSales', color_continuous_scale='RdBu',
+                             title='Komposisi Penjualan per Wilayah')
+    st.plotly_chart(fig_treemap, use_container_width=True)
+
+    # Penjelasan dan audio
     penjelasan_treemap = """
     Treemap ini menampilkan komposisi penjualan di setiap wilayah. 
     Luas setiap kotak sebanding dengan total penjualan di wilayah tersebut, sehingga memberikan visualisasi yang jelas mengenai proporsi penjualan antar wilayah. 
@@ -127,81 +140,66 @@ if df_sales_per_territory is not None:
         audio_bytes = audio_file.read()
         st.audio(audio_bytes, format='audio/mp3')
 
-    fig, ax = plt.subplots(figsize=(12, 8))
-    squarify.plot(sizes=df_sales_per_territory['TotalSales'], 
-                  label=df_sales_per_territory['Region'], 
-                  alpha=.8,
-                  color=sns.color_palette("Spectral", len(df_sales_per_territory)))
-    ax.set_title('Komposisi Penjualan per Wilayah')
-    ax.axis('off')  # turn off the axis
-    st.pyplot(fig)
-
 # Bagian untuk distribusi usia pelanggan
 st.header('Distribusi Usia Pelanggan')
-penjelasan_age_distribution = """
-Histogram ini menampilkan distribusi usia pelanggan berdasarkan data tanggal lahir dan tanggal pembelian pertama mereka. 
-Sumbu x mewakili usia pelanggan, sedangkan sumbu y menunjukkan frekuensi atau jumlah pelanggan pada rentang usia tertentu. 
-Analisis ini penting untuk segmentasi pasar dan strategi pemasaran yang lebih efektif.
-"""
-st.markdown(penjelasan_age_distribution)
-audio_age_distribution = "audio_age_distribution.mp3"
-if not os.path.exists(audio_age_distribution):
-    text_to_audio(penjelasan_age_distribution, audio_age_distribution)
-if st.button("Dengarkan Penjelasan Distribusi Usia Pelanggan"):
-    audio_file = open(audio_age_distribution, 'rb')
-    audio_bytes = audio_file.read()
-    st.audio(audio_bytes, format='audio/mp3')
 
 df_customer_age_distribution = fetch_data(query_customer_age_distribution)
 if df_customer_age_distribution is not None:
-    plt.figure(figsize=(10, 6))
-    sns.histplot(df_customer_age_distribution['Age'], bins=20, kde=True)
-    plt.title('Distribusi Usia Pelanggan')
-    plt.xlabel('Usia')
-    plt.ylabel('Frekuensi')
-    st.pyplot(plt)
+    sns.set_theme(style="whitegrid")
+    fig, ax = plt.subplots(figsize=(10, 6))
+    sns.histplot(df_customer_age_distribution['Age'], bins=20, kde=True, ax=ax)
+    ax.set_title('Distribusi Usia Pelanggan', fontsize=16)
+    ax.set_xlabel('Usia', fontsize=14)
+    ax.set_ylabel('Frekuensi', fontsize=14)
+    st.pyplot(fig)
+
+    # Penjelasan dan audio
+    penjelasan_age_distribution = """
+    Histogram ini menampilkan distribusi usia pelanggan berdasarkan data tanggal lahir dan tanggal pembelian pertama mereka. 
+    Sumbu x mewakili usia pelanggan, sedangkan sumbu y menunjukkan frekuensi atau jumlah pelanggan pada rentang usia tertentu. 
+    Analisis ini penting untuk segmentasi pasar dan strategi pemasaran yang lebih efektif.
+    """
+    st.markdown(penjelasan_age_distribution)
+    audio_age_distribution = "audio_age_distribution.mp3"
+    if not os.path.exists(audio_age_distribution):
+        text_to_audio(penjelasan_age_distribution, audio_age_distribution)
+    if st.button("Dengarkan Penjelasan Distribusi Usia Pelanggan"):
+        audio_file = open(audio_age_distribution, 'rb')
+        audio_bytes = audio_file.read()
+        st.audio(audio_bytes, format='audio/mp3')
 
 # Bagian untuk hubungan antara mountain bikes dan spareparts
 st.header('Penjualan Mountain Bike dan Spareparts')
-penjelasan_mountain_bike = """
-Bubble plot ini menunjukkan hubungan antara penjualan mountain bike dan berbagai jenis spareparts yang terjual bersamaan. 
-Setiap lingkaran mewakili satu jenis sparepart, dan ukurannya menunjukkan jumlah total penjualan sparepart tersebut yang terjadi bersamaan dengan penjualan mountain bike. 
-Analisis ini memberikan wawasan tentang preferensi pelanggan dalam pembelian produk terkait, yang bisa digunakan untuk promosi bundling atau cross-selling.
-"""
-st.markdown(penjelasan_mountain_bike)
-audio_mountain_bike = "audio_mountain_bike.mp3"
-if not os.path.exists(audio_mountain_bike):
-    text_to_audio(penjelasan_mountain_bike, audio_mountain_bike)
-if st.button("Dengarkan Penjelasan Penjualan Mountain Bike dan Spareparts"):
-    audio_file = open(audio_mountain_bike, 'rb')
-    audio_bytes = audio_file.read()
-    st.audio(audio_bytes, format='audio/mp3')
 
 df_mountain_bike_spareparts = fetch_data(query_mountain_bike_spareparts)
 if df_mountain_bike_spareparts is not None:
-    plt.figure(figsize=(10, 6))
-    plt.scatter(data=df_mountain_bike_spareparts, x='SparepartType', y='TotalSales', s=df_mountain_bike_spareparts['TotalSales']*10, alpha=0.5)
-    plt.title('Penjualan Mountain Bike dan Spareparts')
-    plt.xlabel('Jenis Sparepart')
-    plt.ylabel('Total Penjualan')
-    plt.xticks(rotation=45)
-    st.pyplot(plt)
+    fig_bubble = px.scatter(df_mountain_bike_spareparts, x='SparepartType', y='TotalSales',
+                            size='TotalSales', color='SparepartType',
+                            labels={'TotalSales': 'Total Penjualan', 'SparepartType': 'Jenis Sparepart'},
+                            title='Penjualan Mountain Bike dan Spareparts')
+    fig_bubble.update_layout(xaxis_title='Jenis Sparepart', yaxis_title='Total Penjualan')
+    st.plotly_chart(fig_bubble, use_container_width=True)
+
+    # Penjelasan dan audio
+    penjelasan_mountain_bike = """
+    Bubble plot ini menunjukkan hubungan antara penjualan mountain bike dan berbagai jenis spareparts yang terjual bersamaan. 
+    Setiap lingkaran mewakili satu jenis sparepart, dan ukurannya menunjukkan jumlah total penjualan sparepart tersebut yang terjadi bersamaan dengan penjualan mountain bike. 
+    Analisis ini memberikan wawasan tentang preferensi pelanggan dalam pembelian produk terkait, yang bisa digunakan untuk promosi bundling atau cross-selling.
+    """
+    st.markdown(penjelasan_mountain_bike)
+    audio_mountain_bike = "audio_mountain_bike.mp3"
+    if not os.path.exists(audio_mountain_bike):
+        text_to_audio(penjelasan_mountain_bike, audio_mountain_bike)
+    if st.button("Dengarkan Penjelasan Penjualan Mountain Bike dan Spareparts"):
+        audio_file = open(audio_mountain_bike, 'rb')
+        audio_bytes = audio_file.read()
+        st.audio(audio_bytes, format='audio/mp3')
+
+
+st.title('Data Analysis with Streamlit and IMDb Data')
 
 # Bagian untuk analisis data IMDb
 st.header('Analisis Data IMDb')
-penjelasan_imdb = """
-Analisis ini menggunakan data IMDb untuk memberikan wawasan tentang pendapatan kotor global dari film berdasarkan tahun, distribusi pendapatan, dan komposisi pendapatan berdasarkan rating.
-Selain itu, juga menunjukkan hubungan antara anggaran produksi dan pendapatan kotor film.
-"""
-st.markdown(penjelasan_imdb)
-audio_imdb = "audio_imdb.mp3"
-if not os.path.exists(audio_imdb):
-    text_to_audio(penjelasan_imdb, audio_imdb)
-if st.button("Dengarkan Penjelasan Analisis Data IMDb"):
-    audio_file = open(audio_imdb, 'rb')
-    audio_bytes = audio_file.read()
-    st.audio(audio_bytes, format='audio/mp3')
-
 
 # Load the CSV file
 file_path = 'https://raw.githubusercontent.com/TegarCode/davis2024/main/imdb_combined_data2.csv'
@@ -224,6 +222,13 @@ st.write(data.describe())
 
 # Comparison Plot: Total Gross Worldwide per Year
 st.write("Comparison Plot: Total Gross Worldwide per Year")
+gross_per_year = data.groupby('Year')['Gross_World'].sum().reset_index()
+fig_bar = px.bar(gross_per_year, x='Year', y='Gross_World', 
+                 labels={'Gross_World': 'Total Gross Worldwide', 'Year': 'Year'}, 
+                 title='Total Gross Worldwide per Year',
+                 color='Gross_World', color_continuous_scale='Viridis')
+st.plotly_chart(fig_bar, use_container_width=True)
+
 penjelasan_gross_per_year = """
 Grafik batang ini menunjukkan total pendapatan kotor global dari film-film yang dirilis setiap tahun. 
 Setiap batang mewakili satu tahun, dan tinggi batang menunjukkan jumlah total pendapatan kotor dari semua film yang dirilis pada tahun tersebut. 
@@ -238,15 +243,14 @@ if st.button("Dengarkan Penjelasan Total Gross Worldwide per Year"):
     audio_bytes = audio_file.read()
     st.audio(audio_bytes, format='audio/mp3')
 
-fig, ax = plt.subplots(figsize=(10, 6))
-data.groupby('Year')['Gross_World'].sum().plot(kind='bar', ax=ax)
-ax.set_xlabel('Year')
-ax.set_ylabel('Total Gross Worldwide')
-ax.set_title('Total Gross Worldwide per Year')
-st.pyplot(fig)
-
 # Distribution Plot: Distribution of Gross Worldwide
 st.write("Distribution Plot: Distribution of Gross Worldwide")
+fig_hist = px.histogram(data, x='Gross_World', nbins=30, 
+                        labels={'Gross_World': 'Gross Worldwide'}, 
+                        title='Distribution of Gross Worldwide',
+                        color_discrete_sequence=['skyblue'])
+st.plotly_chart(fig_hist, use_container_width=True)
+
 penjelasan_distribution_gross = """
 Histogram ini menampilkan distribusi pendapatan kotor global dari film-film. 
 Sumbu x mewakili pendapatan kotor, sementara sumbu y menunjukkan frekuensi atau jumlah film dalam rentang pendapatan tertentu. 
@@ -261,15 +265,14 @@ if st.button("Dengarkan Penjelasan Distribusi Gross Worldwide"):
     audio_bytes = audio_file.read()
     st.audio(audio_bytes, format='audio/mp3')
 
-fig, ax = plt.subplots(figsize=(10, 6))
-data['Gross_World'].plot(kind='hist', bins=30, color='skyblue', ax=ax)
-ax.set_xlabel('Gross Worldwide')
-ax.set_ylabel('Frequency')
-ax.set_title('Distribution of Gross Worldwide')
-st.pyplot(fig)
-
 # Composition Plot: Gross Worldwide composition by Rating
 st.write("Composition Plot: Gross Worldwide composition by Rating")
+gross_composition = data.groupby('Rating')['Gross_World'].sum().reset_index()
+fig_pie = px.pie(gross_composition, names='Rating', values='Gross_World', 
+                 title='Komposisi Gross Worldwide berdasarkan Rating',
+                 color_discrete_sequence=px.colors.qualitative.Set3, hole=0.3)
+st.plotly_chart(fig_pie, use_container_width=True)
+
 penjelasan_gross_composition = """
 Donut chart ini menampilkan komposisi pendapatan kotor global dari film berdasarkan rating. 
 Setiap bagian mewakili satu rating, dan ukuran bagian menunjukkan proporsi pendapatan kotor yang dihasilkan oleh film-film dengan rating tersebut. 
@@ -284,14 +287,14 @@ if st.button("Dengarkan Penjelasan Komposisi Gross Worldwide berdasarkan Rating"
     audio_bytes = audio_file.read()
     st.audio(audio_bytes, format='audio/mp3')
 
-gross_composition = data.groupby('Rating')['Gross_World'].sum()
-fig, ax = plt.subplots(figsize=(10, 6))
-ax.pie(gross_composition, labels=gross_composition.index, autopct='%1.1f%%', startangle=140, colors=plt.cm.Paired.colors, wedgeprops=dict(width=0.3))
-ax.set_title('Komposisi Gross Worldwide berdasarkan Rating')
-st.pyplot(fig)
-
 # Relationship Plot: Budget vs. Gross Worldwide
 st.write("Plot Hubungan: Budget vs. Gross Worldwide")
+fig_scatter = px.scatter(data, x='Budget', y='Gross_World', 
+                         labels={'Budget': 'Budget', 'Gross_World': 'Gross Worldwide'}, 
+                         title='Hubungan antara Budget dan Gross Worldwide',
+                         color='Gross_World', color_continuous_scale='Viridis', size='Gross_World')
+st.plotly_chart(fig_scatter, use_container_width=True)
+
 penjelasan_budget_vs_gross = """
 Scatter plot ini menunjukkan hubungan antara anggaran produksi film dan pendapatan kotor di seluruh dunia. 
 Setiap titik mewakili satu film, dengan sumbu x menunjukkan anggaran produksi dan sumbu y menunjukkan pendapatan kotor. 
@@ -305,10 +308,3 @@ if st.button("Dengarkan Penjelasan Hubungan antara Budget dan Gross Worldwide"):
     audio_file = open(audio_budget_vs_gross, 'rb')
     audio_bytes = audio_file.read()
     st.audio(audio_bytes, format='audio/mp3')
-
-fig, ax = plt.subplots(figsize=(10, 6))
-ax.scatter(data['Budget'], data['Gross_World'], alpha=0.5)
-ax.set_xlabel('Budget')
-ax.set_ylabel('Gross Worldwide')
-ax.set_title('Hubungan antara Budget dan Gross Worldwide')
-st.pyplot(fig)
