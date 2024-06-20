@@ -209,12 +209,7 @@ data = pd.read_csv(file_path)
 st.write("First few rows of the DataFrame:")
 st.write(data.head())
 
-# Display summary information about the DataFrame
-st.write("Summary information about the DataFrame:")
-buffer = StringIO()
-data.info(buf=buffer)
-info_str = buffer.getvalue()
-st.text(info_str)
+
 
 # Display statistical summary of the DataFrame
 st.write("Statistical summary of the DataFrame:")
