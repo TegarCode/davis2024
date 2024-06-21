@@ -267,11 +267,11 @@ elif page == "Analisis Data IMDb":
     dikonsumsi dari film terlaris itu berasal dari tahun berapa.
     """
     st.markdown(penjelasan_gross_per_year)
-    audio_gross_per_year = "audio_gross_per_year.mp3"
-    if not os.path.exists(audio_gross_per_year):
-        text_to_audio(penjelasan_gross_per_year, audio_gross_per_year)
+    audio_gross_per_year1 = "audio_gross_per_year1.mp3"
+    if not os.path.exists(audio_gross_per_year1):
+        text_to_audio(penjelasan_gross_per_year, audio_gross_per_year1)
     if st.button("Dengarkan Penjelasan Total Gross Worldwide per Year"):
-        audio_file = open(audio_gross_per_year, 'rb')
+        audio_file = open(audio_gross_per_year1, 'rb')
         audio_bytes = audio_file.read()
         st.audio(audio_bytes, format='audio/mp3')
 
