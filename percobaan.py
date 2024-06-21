@@ -38,13 +38,13 @@ def main():
         
         # SQLAlchemy connection and query for bar chart
         try:
-            dialect = st.secrets['connections'].['mydb'].['dialect']
-            driver = st.secrets['connections'].['mydb'].['driver']
-            host = st.secrets['connections'].['mydb'].['host']
-            port = st.secrets['connections'].['mydb'].['port']
-            user = st.secrets['connections'].['mydb'].['user']
-            password = st.secrets['connections'].['mydb'].['password']
-            database = st.secrets['connections'].['mydb'].['database']    
+            dialect = st.secrets[connections].[mydb].[dialect]
+            driver = st.secrets[connections].[mydb].[driver]
+            host = st.secrets[connections].[mydb].[host]
+            port = st.secrets[connections].[mydb].[port]
+            user = st.secrets[connections].[mydb].[user]
+            password = st.secrets[connections].[mydb].[password]
+            database = st.secrets[connections].[mydb].[database]    
             # Buat URL koneksi untuk SQLAlchemy
             engine = f"{dialect}+{driver}://{user}:{password}@{host}:{port}/{database}"
                 
