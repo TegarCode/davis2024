@@ -24,11 +24,11 @@ if page == "Analisis Data Database":
     def create_connection():
         try:
             connection = pymysql.connect(
-                host=st.secrets.connections_mydb.host,
-                port=st.secrets.connections_mydb.port,
-                user=st.secrets.connections_mydb.user,
-                password=st.secrets.connections_mydb.password,
-                database=st.secrets.connections_mydb.database
+                host=st.Secrets.connections_mydb.host,
+                port=st.Secrets.connections_mydb.port,
+                user=st.Secrets.connections_mydb.user,
+                password=st.Secrets.connections_mydb.password,
+                database=st.Secrets.connections_mydb.database
             )
             return connection
         except Exception as e:
