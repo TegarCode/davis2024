@@ -21,19 +21,27 @@ if page == "Analisis Data Database":
 
     st.title('Analisis Data dari Database')
     # Fungsi untuk membuat koneksi ke database
+
+    # Fungsi untuk membuat koneksi ke database menggunakan Streamlit secrets
     def create_connection():
         try:
             connection = pymysql.connect(
-                host=st.secrets.connections_mydb.host,
-                port=st.secrets.connections_mydb.port,
-                user=st.secrets.connections_mydb.user,
-                password=st.secrets.connections_mydb.password,
-                database=st.secrets.connections_mydb.database
+                host=st.secrets["connections_mydb"]["host"],
+                port=st.secrets["connections_mydb"]["port"],
+                user=st.secrets["connections_mydb"]["user"],
+                password=st.secrets["connections_mydb"]["password"],
+                database=st.secrets["connections_mydb"]["database"]
             )
             return connection
         except Exception as e:
             st.error(f"Error connecting to database: {e}")
             return None
+
+# Contoh penggunaan koneksi
+connection = create_connection()
+if connection:
+    st.success("Koneksi berhasil!")
+
 
     # Fungsi untuk menjalankan query dan mendapatkan data
     def fetch_data(query):
