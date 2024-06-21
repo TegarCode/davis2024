@@ -22,18 +22,18 @@ if page == "Analisis Data Database":
     st.title('Analisis Data dari Database')
     # Fungsi untuk membuat koneksi ke database
     def create_connection():
-    try:
-        connection = pymysql.connect(
-            host=st.secrets["connections"]["mydb"]["host"],
-            port=st.secrets["connections"]["mydb"]["port"],
-            user=st.secrets["connections"]["mydb"]["user"],
-            password=st.secrets["connections"]["mydb"]["password"],
-            database=st.secrets["connections"]["mydb"]["database"]
-        )
-        return connection
-    except Exception as e:
-        st.error(f"Error connecting to database: {e}")
-        return None
+        try:
+            connection = pymysql.connect(
+                host=st.secrets["connections"]["mydb"]["host"],
+                port=st.secrets["connections"]["mydb"]["port"],
+                user=st.secrets["connections"]["mydb"]["user"],
+                password=st.secrets["connections"]["mydb"]["password"],
+                database=st.secrets["connections"]["mydb"]["database"]
+            )
+            return connection
+        except Exception as e:
+            st.error(f"Error connecting to database: {e}")
+            return None
 
     # Fungsi untuk menjalankan query dan mendapatkan data
     def fetch_data(query):
