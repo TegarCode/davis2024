@@ -15,6 +15,10 @@ page = st.sidebar.selectbox("Pilih Halaman", ["Analisis Data Database", "Analisi
 
 
 if page == "Analisis Data Database":
+    st.title('Final Project Data Analysis with Streamlit and MySQL')
+    st.title('Tegar Oktavianto Simbolon')
+    st.title('21082010140')
+
     st.title('Analisis Data dari Database')
     # Fungsi untuk membuat koneksi ke database
     def create_connection():
@@ -97,9 +101,6 @@ if page == "Analisis Data Database":
     ORDER BY TotalSales DESC;
     """
 
-    st.title('Final Project Data Analysis with Streamlit and MySQL')
-    st.title('Tegar Oktavianto Simbolon')
-    st.title('21082010140')
 
     # Bagian untuk visualisasi penjualan per wilayah
     st.header('Distribusi Penjualan per Wilayah')
@@ -209,6 +210,10 @@ if page == "Analisis Data Database":
 
 
 elif page == "Analisis Data IMDb":
+    st.title('Final Project Data Analysis with Streamlit and MySQL')
+    st.title('Tegar Oktavianto Simbolon')
+    st.title('21082010140')
+
     st.title('Data Analysis with Streamlit and IMDb Data')
 
     # Bagian untuk analisis data IMDb
