@@ -103,7 +103,7 @@ if page == "Analisis Data Database":
 
 
     # Bagian untuk visualisasi penjualan per wilayah
-    st.header('Distribusi Penjualan per Wilayah')
+    st.header('Perbandingan Penjualan per Wilayah')
 
     df_sales_per_territory = fetch_data(query_sales_per_territory)
     if df_sales_per_territory is not None:
@@ -116,9 +116,11 @@ if page == "Analisis Data Database":
 
         # Penjelasan dan audio
         penjelasan_territory = """
-        Grafik batang ini menunjukkan distribusi penjualan di setiap wilayah. 
+        Grafik batang ini menunjukkan perbandingan penjualan di setiap wilayah. 
         Setiap batang mewakili satu wilayah, dan tinggi batang menunjukkan jumlah total penjualan di wilayah tersebut. 
-        Ini membantu memahami bagaimana penjualan terdistribusi di berbagai wilayah geografis, yang dapat mempengaruhi pengambilan keputusan strategis.
+        Ini membantu memahami bagaimana penjualan terdistribusi di berbagai wilayah geografis, yang dapat mempengaruhi pengambilan keputusan strategis. Visualisasi ini penting untuk melihat
+        dan menyampaikan sebaran penjualan dari toko di setiap wilayah terutama negara, hal ini dapat membantu kita sebagai
+        audience memahami tingkat popularitas toko tersebut disuatu negara terutama bila dinegara sendiri
         """
         st.markdown(penjelasan_territory)
         audio_territory = "audio_territory.mp3"
@@ -140,7 +142,10 @@ if page == "Analisis Data Database":
         penjelasan_treemap = """
         Treemap ini menampilkan komposisi penjualan di setiap wilayah. 
         Luas setiap kotak sebanding dengan total penjualan di wilayah tersebut, sehingga memberikan visualisasi yang jelas mengenai proporsi penjualan antar wilayah. 
-        Ini berguna untuk mengidentifikasi wilayah dengan performa penjualan tertinggi dan terendah.
+        Ini berguna untuk mengidentifikasi wilayah dengan performa penjualan tertinggi dan terendah. Dari sini kita dapat mengetahui bahwa
+        Australia memiliki performa penjualan yang baik mungkin karena Australia memiliki wilayah yang luas tetapi wilayah yang dapat dihuni
+        tidak sampai 1/4nya kota kota di Australia sangat jauh akan tetapi setiap kotanya merupakan kota metropolitan karna itu penjualan disana untuk produk 
+        speda dll sangat diminati
         """
         st.markdown(penjelasan_treemap)
         audio_treemap = "audio_treemap.mp3"
@@ -168,7 +173,10 @@ if page == "Analisis Data Database":
         penjelasan_age_distribution = """
         Histogram ini menampilkan distribusi usia pelanggan berdasarkan data tanggal lahir dan tanggal pembelian pertama mereka. 
         Sumbu x mewakili usia pelanggan, sedangkan sumbu y menunjukkan frekuensi atau jumlah pelanggan pada rentang usia tertentu. 
-        Analisis ini penting untuk segmentasi pasar dan strategi pemasaran yang lebih efektif.
+        Analisis ini penting untuk segmentasi pasar dan strategi pemasaran yang lebih efektif. Dilihat dari grafiknya usia paling banyak 
+        mengkonsumsi produk ini berasal dari orang dewasa diatas 40. Data diambil dari tanggal lahir pelanggan dan data terakhir penjualan tercatat.
+        karena tidak terdapat keterangan apakah pembeli masih aktif membeli atau tidak jadi terdapat data yang sedikit aneh dmna usia tertinggi
+        pelanggan mencapai 120 tahun jadi butuh evaluasi tenatng sistem pencatan pembelian agar data umur dapat terpresentasi dengan baik
         """
         st.markdown(penjelasan_age_distribution)
         audio_age_distribution = "audio_age_distribution.mp3"
@@ -195,7 +203,10 @@ if page == "Analisis Data Database":
         penjelasan_mountain_bike = """
         Bubble plot ini menunjukkan hubungan antara penjualan mountain bike dan berbagai jenis spareparts yang terjual bersamaan. 
         Setiap lingkaran mewakili satu jenis sparepart, dan ukurannya menunjukkan jumlah total penjualan sparepart tersebut yang terjadi bersamaan dengan penjualan mountain bike. 
-        Analisis ini memberikan wawasan tentang preferensi pelanggan dalam pembelian produk terkait, yang bisa digunakan untuk promosi bundling atau cross-selling.
+        Analisis ini memberikan wawasan tentang preferensi pelanggan dalam pembelian produk terkait, yang bisa digunakan untuk promosi bundling atau cross-selling. Jika teliti 
+        data tersebut menunjukkan produk sparepart yang paling banyak dikonsumsi oleh pengguna sepeda gunung kita bisa mengesampingkan Bottle and Cages dan juga Tires karena sparepart
+        tersebut memang memiliki masa pakai yang relatif singkat. Disini Helmet dan Fenders menjadi acuan kita karena helmet dibutuhkan untuk safety ketika offroad menggunakan speda gunung,
+        Sementara Fenders sering kali rusak karena pengguna sepeda gunung kerap kali jatuh saat melakukan offroad
         """
         st.markdown(penjelasan_mountain_bike)
         audio_mountain_bike = "audio_mountain_bike.mp3"
@@ -250,7 +261,8 @@ elif page == "Analisis Data IMDb":
     penjelasan_gross_per_year = """
     Grafik batang ini menunjukkan total pendapatan kotor global dari film-film yang dirilis setiap tahun. 
     Setiap batang mewakili satu tahun, dan tinggi batang menunjukkan jumlah total pendapatan kotor dari semua film yang dirilis pada tahun tersebut. 
-    Grafik ini membantu dalam mengidentifikasi tren pendapatan film dari waktu ke waktu.
+    Grafik ini membantu dalam mengidentifikasi tren pendapatan film dari waktu ke waktu. Kita bisa melihat pendapata kotor yang paling banyak didapat dan 
+    dikonsumsi dari film terlaris itu berasal dari tahun berapa.
     """
     st.markdown(penjelasan_gross_per_year)
     audio_gross_per_year = "audio_gross_per_year.mp3"
@@ -272,7 +284,9 @@ elif page == "Analisis Data IMDb":
     penjelasan_distribution_gross = """
     Histogram ini menampilkan distribusi pendapatan kotor global dari film-film. 
     Sumbu x mewakili pendapatan kotor, sementara sumbu y menunjukkan frekuensi atau jumlah film dalam rentang pendapatan tertentu. 
-    Grafik ini membantu memahami pola distribusi pendapatan film dan mengidentifikasi rentang pendapatan yang paling umum.
+    Grafik ini membantu memahami pola distribusi pendapatan film dan mengidentifikasi rentang pendapatan yang paling umum. Kita dapat melihat
+    pendapatan kotor dalam rentang pendapatan tertentu dari film-film terlaris yang tercatat di IMDB ada berapa banyak misal pada rentang 1.1-1.150 B 
+    hanya terrcatat 1 film yang berhasil mencapainya
     """
     st.markdown(penjelasan_distribution_gross)
     audio_distribution_gross = "audio_distribution_gross.mp3"
@@ -294,7 +308,9 @@ elif page == "Analisis Data IMDb":
     penjelasan_gross_composition = """
     Donut chart ini menampilkan komposisi pendapatan kotor global dari film berdasarkan rating. 
     Setiap bagian mewakili satu rating, dan ukuran bagian menunjukkan proporsi pendapatan kotor yang dihasilkan oleh film-film dengan rating tersebut. 
-    Grafik ini memberikan wawasan tentang kontribusi masing-masing rating terhadap total pendapatan kotor.
+    Grafik ini memberikan wawasan tentang kontribusi masing-masing rating terhadap total pendapatan kotor. Kita lihat rata-rata penghimpun
+    pendapatan kotor itu berasal dari film dengan Rating R dimana rating R merupakan Dibatasi, Anak-Anak di Bawah 17 Tahun Wajib didampingi Orang Tua atau Wali Dewasa. 
+    Rating ini berarti film tersebut mengandung materi dewasa seperti aktivitas dewasa, bahasa kasar, kekerasan grafis yang intens, penyalahgunaan narkoba.
     """
     st.markdown(penjelasan_gross_composition)
     audio_gross_composition = "audio_gross_composition.mp3"
