@@ -97,7 +97,9 @@ if page == "Analisis Data Database":
     ORDER BY TotalSales DESC;
     """
 
-    st.title('Data Analysis with Streamlit and MySQL')
+    st.title('Final Project Data Analysis with Streamlit and MySQL')
+    st.title('Tegar Oktavianto Simbolon')
+    st.title('21082010140')
 
     # Bagian untuk visualisasi penjualan per wilayah
     st.header('Distribusi Penjualan per Wilayah')
