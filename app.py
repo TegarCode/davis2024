@@ -223,10 +223,6 @@ if page == "Analisis Data Database":
 
 
 elif page == "Analisis Data IMDb":
-    st.title('Final Project Data Analysis with Streamlit and MySQL')
-    st.title('Tegar Oktavianto Simbolon')
-    st.title('21082010140')
-
     st.title('Data Analysis with Streamlit and IMDb Data')
 
     # Bagian untuk analisis data IMDb
@@ -263,15 +259,14 @@ elif page == "Analisis Data IMDb":
     penjelasan_gross_per_year = """
     Grafik batang ini menunjukkan total pendapatan kotor global dari film-film yang dirilis setiap tahun. 
     Setiap batang mewakili satu tahun, dan tinggi batang menunjukkan jumlah total pendapatan kotor dari semua film yang dirilis pada tahun tersebut. 
-    Grafik ini membantu dalam mengidentifikasi tren pendapatan film dari waktu ke waktu. Kita bisa melihat pendapata kotor yang paling banyak didapat dan 
-    dikonsumsi dari film terlaris itu berasal dari tahun berapa.
+    Grafik ini membantu dalam mengidentifikasi tren pendapatan film dari waktu ke waktu.
     """
     st.markdown(penjelasan_gross_per_year)
-    audio_gross_per_year1 = "audio_gross_per_year1.mp3"
-    if not os.path.exists(audio_gross_per_year1):
-        text_to_audio(penjelasan_gross_per_year, audio_gross_per_year1)
+    audio_gross_per_year = "audio_gross_per_year.mp3"
+    if not os.path.exists(audio_gross_per_year):
+        text_to_audio(penjelasan_gross_per_year, audio_gross_per_year)
     if st.button("Dengarkan Penjelasan Total Gross Worldwide per Year"):
-        audio_file = open(audio_gross_per_year1, 'rb')
+        audio_file = open(audio_gross_per_year, 'rb')
         audio_bytes = audio_file.read()
         st.audio(audio_bytes, format='audio/mp3')
 
@@ -286,9 +281,7 @@ elif page == "Analisis Data IMDb":
     penjelasan_distribution_gross = """
     Histogram ini menampilkan distribusi pendapatan kotor global dari film-film. 
     Sumbu x mewakili pendapatan kotor, sementara sumbu y menunjukkan frekuensi atau jumlah film dalam rentang pendapatan tertentu. 
-    Grafik ini membantu memahami pola distribusi pendapatan film dan mengidentifikasi rentang pendapatan yang paling umum. Kita dapat melihat
-    pendapatan kotor dalam rentang pendapatan tertentu dari film-film terlaris yang tercatat di IMDB ada berapa banyak misal pada rentang 1.1-1.150 B 
-    hanya terrcatat 1 film yang berhasil mencapainya
+    Grafik ini membantu memahami pola distribusi pendapatan film dan mengidentifikasi rentang pendapatan yang paling umum.
     """
     st.markdown(penjelasan_distribution_gross)
     audio_distribution_gross = "audio_distribution_gross.mp3"
@@ -310,9 +303,7 @@ elif page == "Analisis Data IMDb":
     penjelasan_gross_composition = """
     Donut chart ini menampilkan komposisi pendapatan kotor global dari film berdasarkan rating. 
     Setiap bagian mewakili satu rating, dan ukuran bagian menunjukkan proporsi pendapatan kotor yang dihasilkan oleh film-film dengan rating tersebut. 
-    Grafik ini memberikan wawasan tentang kontribusi masing-masing rating terhadap total pendapatan kotor. Kita lihat rata-rata penghimpun
-    pendapatan kotor itu berasal dari film dengan Rating R dimana rating R merupakan Dibatasi, Anak-Anak di Bawah 17 Tahun Wajib didampingi Orang Tua atau Wali Dewasa. 
-    Rating ini berarti film tersebut mengandung materi dewasa seperti aktivitas dewasa, bahasa kasar, kekerasan grafis yang intens, penyalahgunaan narkoba.
+    Grafik ini memberikan wawasan tentang kontribusi masing-masing rating terhadap total pendapatan kotor.
     """
     st.markdown(penjelasan_gross_composition)
     audio_gross_composition = "audio_gross_composition.mp3"
