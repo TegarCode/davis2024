@@ -23,7 +23,7 @@ if page == "Analisis Data Database":
     # Fungsi untuk membuat koneksi ke database
     def create_connection():
         try:
-            connection = pymysql.secrets.connect(
+            connection = pymysql.connect(
                 host=st.secrets["connections"]["mydb"]["host"],
                 port=st.secrets["connections"]["mydb"]["port"],
                 user=st.secrets["connections"]["mydb"]["user"],
