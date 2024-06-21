@@ -13,7 +13,9 @@ from gtts import gTTS
 st.sidebar.title("Menu Navigasi")
 page = st.sidebar.selectbox("Pilih Halaman", ["Analisis Data Database", "Analisis Data IMDb"])
 
-
+def text_to_audio(text, filename):
+        tts = gTTS(text, lang='id')
+        tts.save(filename)
 if page == "Analisis Data Database":
     st.title('Final Project Data Analysis with Streamlit and MySQL')
     st.title('Tegar Oktavianto Simbolon')
@@ -58,9 +60,6 @@ if page == "Analisis Data Database":
             connection.close()
 
     # Fungsi untuk mengubah teks menjadi audio
-    def text_to_audio(text, filename):
-        tts = gTTS(text, lang='id')
-        tts.save(filename)
 
     # Query untuk mendapatkan data penjualan per wilayah
     query_sales_per_territory = """
@@ -223,9 +222,7 @@ if page == "Analisis Data Database":
 
 
 elif page == "Analisis Data IMDb":
-   def text_to_audio(text, filename):
-        tts = gTTS(text, lang='id')
-        tts.save(filename)
+   
 
 
 
