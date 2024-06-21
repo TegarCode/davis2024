@@ -21,8 +21,7 @@ if page == "Analisis Data Database":
 
     st.title('Analisis Data dari Database')
     # Fungsi untuk membuat koneksi ke database
-    # Debugging - Print all keys in st.secrets
-    st.write(st.secrets)
+   
     
     # Fungsi untuk membuat koneksi ke database menggunakan Streamlit secrets
     def create_connection():
